@@ -55,14 +55,14 @@
 
 #include <tf/tf.h>
 
-#include <opencv/cv.h>
-#include <opencv/highgui.h>
+#include <opencv2/opencv.hpp>
+#include <opencv2/highgui.hpp>
 #include <opencv2/core/version.hpp>
 
 #if (CV_MAJOR_VERSION == 3)
 #include "gencolors.cpp"
 #else
-#include <opencv2/contrib/contrib.hpp>
+// #include <opencv2/contrib/contrib.hpp>
 #include <autoware_tracker/DetectedObjectArray.h>
 #endif
 
@@ -850,14 +850,15 @@ int main(int argc, char **argv)
   _transform = &transform;
   _transform_listener = &listener;
 
-  ROS_INFO("[%s] generating colors ...", __APP_NAME__);
-#if (CV_MAJOR_VERSION == 3)
-  generateColors(_colors, 255);
-#else
-  cv::generateColors(_colors, 255);
-#endif
-  ROS_INFO("[%s] generating colors done!", __APP_NAME__);
-
+//   ROS_INFO("[%s] generating colors ...", __APP_NAME__);
+// #if (CV_MAJOR_VERSION == 3)
+//   generateColors(_colors, 255);
+// #else
+//   cv::generateColors(_colors, 255);
+// #endif
+//   ROS_INFO("[%s] generating colors done!", __APP_NAME__);
+  static const int N_clusters = 256;//why???
+  for(int i=0;i<N_clusters;i++)_colors.push_back(cv::Scalar((int)(256.0*(float)i/(float)N_clusters),255-(int)(256.0*(float)i/(float)N_clusters),0));
 
   _pub_cluster_cloud = nh.advertise<sensor_msgs::PointCloud2>("autoware_tracker/cluster/points_cluster", 1);
   _pub_ground_cloud = nh.advertise<sensor_msgs::PointCloud2>("autoware_tracker/cluster/points_ground", 1);
