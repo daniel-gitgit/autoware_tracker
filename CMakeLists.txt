@@ -88,3 +88,21 @@ add_executable(imm_ukf_pda
     )
 add_dependencies(imm_ukf_pda ${catkin_EXPORTED_TARGETS} ${PROJECT_NAME}_generate_messages_cpp)
 target_link_libraries(imm_ukf_pda ${catkin_LIBRARIES})
+
+install(
+  TARGETS 
+  lidar_euclidean_cluster_detect
+  imm_ukf_pda
+  visualize_detected_objects
+  RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+)
+
+install(DIRECTORY launch/
+  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/launch
+  PATTERN ".svn" EXCLUDE)
+
+install(DIRECTORY config/
+  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/config
+  PATTERN ".svn" EXCLUDE)
+
+
