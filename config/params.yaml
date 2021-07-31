@@ -2,20 +2,20 @@ autoware_tracker:
 
     cluster:
 
-        points_node: "/points_raw"
-        output_frame: "velodyne"
+        points_node: "/ibeo_fusion_box/as_tx/point_cloud"
+        output_frame: "base_link"
 
-        remove_ground: true
+        remove_ground: false
 
         downsample_cloud: true
         leaf_size: 0.1
 
         use_multiple_thres: true
 
-        cluster_size_min: 20
+        cluster_size_min: 3
         cluster_size_max: 100000
-        clip_min_height: -2.0
-        clip_max_height: 0.0
+        clip_min_height: 0
+        clip_max_height: 3
         cluster_merge_threshold: 1.5
         clustering_distance: 0.75
         remove_points_min: 2.0
@@ -40,7 +40,7 @@ autoware_tracker:
         merge_distance_threshold: 0.5
         use_sukf: false
 
-        tracking_frame: "/world"
+        tracking_frame: "odom"
         # namespace: /detection/object_tracker/
 
 
